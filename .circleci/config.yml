@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/python:3.6.1
+
+    working_directory: ~/repo
+
+    steps:
+    - checkout
+
+    - run: tar -cvzf ./blog_static.tar.gz ./www
+
+    # Deploy to scaleway
+    - add_ssh_keys:
+        fingerprints:
+          - "1f:75:78:e8:e8:7e:07:75:c9:0e:f7:2b:06:8a:3d:35"
+    - deploy:
+        name: deploy master
+        command: |
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+            sudo apt install rsync
+            rsync -azvh ./blog_static.tar.gz $SSH_USER@$SSH_HOST:/var/blogboot/upload/
+            ssh $SSH_USER@$SSH_HOST "cd /var/blogboot/upload/ && tar -xvzf ./blog_static.tar.gz ."
+          fi
+
