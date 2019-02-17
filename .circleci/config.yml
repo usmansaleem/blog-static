@@ -23,6 +23,6 @@ jobs:
             ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
             sudo apt-get install rsync
             rsync -azvh ./blog_static.tar.gz $SSH_USER@$SSH_HOST:/var/blogboot/upload/
-            ssh $SSH_USER@$SSH_HOST "rm -rf /var/blogboot/www && tar -xvzf /var/blogboot/upload/www/blog_static.tar.gz -C /var/blogboot/"
+            ssh $SSH_USER@$SSH_HOST "rm -rf /var/blogboot/www && tar -xvzf /var/blogboot/upload/blog_static.tar.gz -C /var/blogboot/"
           fi
 
