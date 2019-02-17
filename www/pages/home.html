@@ -1,0 +1,41 @@
+<div class="jumbotron jumbotron-fluid" ng-show="showJumbotron()">
+    <div class="container">
+        <h1 class="display-2">Usman Saleem</h1>
+        <p class="lead">An IT professional specialising in enterprise development (Java, Kotlin, JEE, Spring),
+            DevOps/containerization/docker
+            with bits of Angular and the likes.
+        </p>
+        <hr class="my-4">
+        <p>Blogging about things I learn, observe and tryout ...</p>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Latest Articles ...</h1>
+
+    <!-- Blog -->
+    <div class="card-columns">
+        <div class="card p-3" ng-repeat="blogItem in blogItems">
+            <div class="card-body">
+                <h4 class="card-title">{{blogItem.title}}</h4>
+                <p class="card-text">
+                <div ng-bind-html=blogItem.description></div>
+                </p>
+                <a ng-href="/usmansaleem/blog/{{blogItem.urlFriendlyId}}" class="btn btn-primary">Read More</a>
+                <p class="card-text text-right">
+                    <small class="text-muted">{{blogItem.modifiedOn}}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <nav aria-label="Page Navigation">
+        <ul class="pagination pagination-sm justify-content-center">
+            <li class="page-item" ng-class="{'disabled': bigCurrentPage == 1}"><a class="page-link" href="" ng-click="pageChanged(bigCurrentPage - 1)">Previous</a></li>
+            <li ng-repeat="_ in ((_ = []) && (_.length=lastPage) && _) track by $index" class="page-item"
+                ng-class="{'active': bigCurrentPage == $index + 1}"><a class="page-link" href="" ng-click="pageChanged($index + 1)">{{ $index + 1 }}</a></li>
+            <li class="page-item" ng-class="{'disabled': bigCurrentPage == lastPage}"><a class="page-link" href="" ng-click="pageChanged(bigCurrentPage + 1)">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
