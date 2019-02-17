@@ -21,7 +21,7 @@ jobs:
         command: |
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
             ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
-            sudo apt install rsync
+            sudo apt-get install rsync
             rsync -azvh ./blog_static.tar.gz $SSH_USER@$SSH_HOST:/var/blogboot/upload/
             ssh $SSH_USER@$SSH_HOST "cd /var/blogboot/upload/ && tar -xvzf ./blog_static.tar.gz ."
           fi
